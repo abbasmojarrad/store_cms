@@ -2,6 +2,7 @@ import React from "react";
 import { AiOutlineHome } from "react-icons/ai";
 import { BiCommentDetail } from "react-icons/bi";
 import { FiUsers } from "react-icons/fi";
+import { MdProductionQuantityLimits } from "react-icons/md";
 import { BsBagCheck, BsCurrencyDollar } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 
@@ -21,7 +22,7 @@ export default function Sidebar() {
         </li>
         <li>
           <NavLink to="/products">
-            <BiCommentDetail className="icon" />
+          <MdProductionQuantityLimits className="icon" />
             محصولات
           </NavLink>
         </li>
