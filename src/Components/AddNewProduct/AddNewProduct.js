@@ -32,13 +32,12 @@ export default function AddNewProduct({ getAllProducts }) {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         getAllProducts();
-        emptyInputs()
+        emptyInputs();
       });
   };
 
-  function emptyInputs () {
+  function emptyInputs() {
     setNewProductTitle("");
     setNewProductPrice("");
     setNewProductCount("");
@@ -46,7 +45,7 @@ export default function AddNewProduct({ getAllProducts }) {
     setNewProductPopularity("");
     setNewProductSale("");
     setNewProductColors("");
-  };
+  }
 
   return (
     <div className="products-main">
@@ -118,7 +117,11 @@ export default function AddNewProduct({ getAllProducts }) {
             />
           </div>
         </div>
-        <button className="add-products-submit" onClick={addNewProduct}>
+        <button
+          style={{ backgroundColor: "#3b71ca", border: "none" }}
+          className="add-products-submit"
+          onClick={addNewProduct}
+        >
           ثبت محصول
         </button>
       </form>

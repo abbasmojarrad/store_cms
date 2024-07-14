@@ -6,7 +6,6 @@ import "./DeleteModal.css";
 
     useEffect(() => {
       const checkKey = (event) => {
-          console.log(event);
         if (event.keyCode === 27) {
           cancelAction();
         }

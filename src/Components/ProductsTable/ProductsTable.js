@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import "./ProductsTable.css";
 import DeleteModal from "./../DeleteModal/DeleteModal";
 import DetailsModal from "./../DetailsModal/DetailsModal";
@@ -22,12 +22,10 @@ export default function ProductsTable({ allProducts, getAllProducts }) {
   const [productNewColors, setProductNewColors] = useState("");
 
   const deleteModalCancelAction = () => {
-    console.log("مدال کنسل شد");
     setIsShowDeleteModal(false);
   };
 
   const deleteModalSubmitAction = () => {
-    console.log("مدال تایید شد");
     fetch(`http://localhost:8000/api/products/${productID}`, {
       method: "DELETE",
     })
@@ -40,7 +38,6 @@ export default function ProductsTable({ allProducts, getAllProducts }) {
 
   const closeDetailsmodal = () => {
     setIsShowDetailsModal(false);
-    console.log("مدال جزییات بسته شد");
   };
 
   const updateProductInfos = (event) => {
@@ -65,12 +62,10 @@ export default function ProductsTable({ allProducts, getAllProducts }) {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         getAllProducts();
         setIsShowEditModal(false);
       });
 
-    console.log("محصول ویرایش شد");
   };
 
   return (
@@ -99,9 +94,9 @@ export default function ProductsTable({ allProducts, getAllProducts }) {
                 <td>{product.title}</td>
                 <td>{product.price} تومان</td>
                 <td>{product.count}</td>
-                <td>
+                <td className="btns">
                   <button
-                    className="products-table-btn"
+                    className="products-table-btn showbtn"
                     onClick={() => {
                       setIsShowDetailsModal(true);
                       setMainProductInfos(product);
@@ -110,7 +105,7 @@ export default function ProductsTable({ allProducts, getAllProducts }) {
                     جزییات
                   </button>
                   <button
-                    className="products-table-btn"
+                    className="products-table-btn deletebtn"
                     onClick={() => {
                       setIsShowDeleteModal(true);
                       setProductID(product.id);
@@ -119,7 +114,7 @@ export default function ProductsTable({ allProducts, getAllProducts }) {
                     حذف
                   </button>
                   <button
-                    className="products-table-btn"
+                    className="products-table-btn editbtn"
                     onClick={() => {
                       setIsShowEditModal(true);
                       setProductID(product.id);

@@ -41,13 +41,11 @@ export default function Users() {
   const closeDetailsModal = () => setIsShowDetailsModal(false);
 
   const removeUser = () => {
-    console.log(mainUserID);
     fetch(`http://localhost:8000/api/users/${mainUserID}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         setIsShowDeleteModal(false);
         getAllUsers();
       });
@@ -55,7 +53,6 @@ export default function Users() {
 
   const updateUser = (event) => {
     event.preventDefault();
-    console.log("اطلاعات کاربر مورد نظر اپدیت شد");
 
     const userNewInfos = {
       firsname: userNewFirsname,
@@ -79,7 +76,6 @@ export default function Users() {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         setIsShowEditModal(false);
         getAllUsers();
       });
@@ -111,8 +107,9 @@ export default function Users() {
                 <td>{user.password}</td>
                 <td>{user.phone}</td>
                 <td>{user.email}</td>
-                <td>
+                <td className="btns">
                   <button
+                    className="deletebtn"
                     onClick={() => {
                       setIsShowDeleteModal(true);
                       setMainUserID(user.id);
@@ -121,6 +118,7 @@ export default function Users() {
                     حذف
                   </button>
                   <button
+                    className="showbtn"
                     onClick={() => {
                       setMainUserInfos(user);
                       setIsShowDetailsModal(true);
@@ -129,6 +127,7 @@ export default function Users() {
                     جزییات
                   </button>
                   <button
+                    className="editbtn"
                     onClick={() => {
                       setIsShowEditModal(true);
                       setMainUserID(user.id);
@@ -140,7 +139,6 @@ export default function Users() {
                       setUserNewCity(user.city);
                       setUserNewEmail(user.email);
                       setUserNewAddress(user.address);
-                      console.log(user.address);
                       setUserNewScore(user.score);
                       setUserNewBuy(user.buy);
                     }}

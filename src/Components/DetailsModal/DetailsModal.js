@@ -4,7 +4,6 @@ import "./DetailsModal.css";
 export default function DetailsModal({ onHide, children }) {
   useEffect(() => {
     const checkKey = (event) => {
-        console.log(event);
       if (event.keyCode === 27) {
         onHide();
       }

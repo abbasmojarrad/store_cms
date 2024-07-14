@@ -17,3 +17,21 @@
   font-size: 1.1rem;
   width: 100%;
 }
+.cms-main .btns{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.cms-main .deletebtn {
+  background-color: #DC4C64;
+  border: none;
+}
+.cms-main .editbtn {
+  background-color: #14A44D;
+  border: none;
+}
+.cms-main .showbtn {
+  background-color: #3B71CA !important;
+  border: none;
+}

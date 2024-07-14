@@ -11,8 +11,6 @@ export default function Comments() {
   const [isShowDetailsModal, setIsShowDetailsModal] = useState(false);
   const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
   const [isShowEditModal, setIsShowEditModal] = useState(false);
-  const [isShowAcceptModal, setIsShowAcceptModal] = useState(false);
-  const [isShowRejectModal, setIsShowRejectModal] = useState(false);
   const [mainCommentBody, setMainCommentBody] = useState("");
   const [commentID, setCommentID] = useState(null);
 
@@ -30,45 +28,12 @@ export default function Comments() {
   const closeDeleteModal = () => setIsShowDeleteModal(false);
   const closeEditModal = () => setIsShowEditModal(false);
 
-  const closeAcceptModal = () => setIsShowAcceptModal(false);
-  const closeRejectModal = () => setIsShowRejectModal(false);
-
-  const rejectComment = () => {
-
-    fetch(`http://localhost:8000/api/comments/reject/${commentID}`, {
-      method: 'POST'
-    }).then(res => res.json())
-    .then(result => {
-      console.log(result);
-      setIsShowRejectModal(false)
-      getAllComments()
-    })
-
-  };
-
-  const acceptComment = () => {
-    console.log("کامنت تایید شد");
-
-    fetch(`http://localhost:8000/api/comments/accept/${commentID}`, {
-      method: "POST",
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
-        setIsShowAcceptModal(false);
-        getAllComments();
-      });
-
-    setIsShowAcceptModal(false);
-  };
-
   const deleteComment = () => {
     fetch(`http://localhost:8000/api/comments/${commentID}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         setIsShowDeleteModal(false);
         getAllComments();
       });
@@ -88,7 +53,6 @@ export default function Comments() {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         setIsShowEditModal(false);
         getAllComments();
       });
@@ -96,7 +60,6 @@ export default function Comments() {
 
   return (
     <div className="cms-main">
-
       <h1 className="cms-title">لیست کامنت‌ها</h1>
 
       {allComments.length ? (
@@ -118,6 +81,7 @@ export default function Comments() {
                 <td>{comment.productID}</td>
                 <td>
                   <button
+                  className="showbtn"
                     onClick={() => {
                       setMainCommentBody(comment.body);
                       setIsShowDetailsModal(true);
@@ -128,8 +92,9 @@ export default function Comments() {
                 </td>
                 <td>{comment.date}</td>
                 <td>{comment.hour}</td>
-                <td>
+                <td className="btns">
                   <button
+                  className="deletebtn"
                     onClick={() => {
                       setIsShowDeleteModal(true);
                       setCommentID(comment.id);
@@ -138,6 +103,7 @@ export default function Comments() {
                     حذف
                   </button>
                   <button
+                  className="editbtn"
                     onClick={() => {
                       setIsShowEditModal(true);
                       setMainCommentBody(comment.body);
@@ -146,27 +112,6 @@ export default function Comments() {
                   >
                     ویرایش
                   </button>
-                  <button>پاسخ</button>
-
-                  {comment.isAccept === 0 ? (
-                    <button
-                      onClick={() => {
-                        setIsShowAcceptModal(true);
-                        setCommentID(comment.id);
-                      }}
-                    >
-                      تایید
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => {
-                        setIsShowRejectModal(true);
-                        setCommentID(comment.id);
-                      }}
-                    >
-                      رد
-                    </button>
-                  )}
                 </td>
               </tr>
             ))}
@@ -199,22 +144,6 @@ export default function Comments() {
             onChange={(event) => setMainCommentBody(event.target.value)}
           ></textarea>
         </EditModal>
-      )}
-
-      {isShowAcceptModal && (
-        <DeleteModal
-          title="آیا از تایید اطمینان دارید؟"
-          cancelAction={closeAcceptModal}
-          submitAction={acceptComment}
-        />
-      )}
-
-      {isShowRejectModal && (
-        <DeleteModal
-          title="آیا از رد کامنت اطمینان دارید؟"
-          cancelAction={closeRejectModal}
-          submitAction={rejectComment}
-        />
       )}
     </div>
   );
